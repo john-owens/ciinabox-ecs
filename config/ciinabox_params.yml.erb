@@ -16,6 +16,10 @@ source_bucket: <%= ciinabox_source_bucket %>
 #domain needs to be manage via route53 since the cloudformation adds additional records
 dns_domain: <%= ciinabox_tools_domain %>
 
+#change this to your own dns_domain
+#domain needs to be manage via route53 since the cloudformation adds additional records
+hosted_zone_id: <%= ciinabox_tools_hosted_zone_id %>
+
 #Environment Access
 #add list of public IP addresses you want to access the environment from
 #default to public access probably best to change this
