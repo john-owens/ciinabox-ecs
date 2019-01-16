@@ -254,7 +254,12 @@ CloudFormation {
       name, details = service.first
       Resource("CiinaboxProxyDNSInternal") {
         Type 'AWS::Route53::RecordSet'
-        Property('HostedZoneName', FnJoin('', [dns_domain, '.']))
+        #Property('HostedZoneName', FnJoin('', [dns_domain, '.']))
+        if hosted_zone_id.nil? || hosted_zone_id.empty? then
+            Property('HostedZoneName', FnJoin('', [dns_domain, '.']))
+        else
+            Property('HostedZoneId', hosted_zone_id)
+        end        
         Property('Name', FnJoin('', ["internal-#{name}.", dns_domain, '.']))
         Property('Type', 'A')
         Property('AliasTarget', {
