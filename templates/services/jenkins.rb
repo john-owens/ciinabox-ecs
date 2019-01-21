@@ -30,10 +30,7 @@ virtual_host = "jenkins.#{dns_domain}"
 if defined? internal_elb and internal_elb
   virtual_host = "#{virtual_host},internal-jenkins.#{dns_domain}"
 end
-port_mappings = [{
-    HostPort: 80,
-    ContainerPort: 8080
-}]
+port_mappings = []
 
 if defined? service
   service = {} if service.nil?

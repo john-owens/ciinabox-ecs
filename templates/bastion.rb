@@ -110,7 +110,12 @@ CloudFormation do
   Resource('BastionRecordSet') {
     Type 'AWS::Route53::RecordSet'
     DependsOn ['BastionIPAddress']
-    Property('HostedZoneName', FnJoin('', [ dns_domain, '.' ]))
+    #Property('HostedZoneName', FnJoin('', [ dns_domain, '.' ]))
+    if hosted_zone_id.nil? || hosted_zone_id.empty? then
+        Property('HostedZoneName', FnJoin('', [dns_domain, '.']))
+    else
+        Property('HostedZoneId', hosted_zone_id)
+    end    
     Property('Comment', 'Bastion record set')
     Property('Name', FnJoin('', [ 'bastion.',  Ref('EnvironmentName') , '.', dns_domain, '.' ]))
     Property('Type', 'A')
